@@ -3,6 +3,7 @@ from functools import partial
 import numpy as np 
 import pandas as pd
 
+
 def parallelize_dataframe(df, func, n_pool=4, col_subsets=None, join_how='outer',**kwargs):
     ''' 
     Function to take a df, a function with args, and a list of column subsets to apply function to. 
@@ -31,11 +32,12 @@ def parallelize_dataframe(df, func, n_pool=4, col_subsets=None, join_how='outer'
     # multiprocessing clean up
     pool.close()
     pool.join()
+    
     return df_out
 
+
 def do_work(df,kwarg_dict=None):
-    ''' Function (which we want to parallelize across different cols of the df) 
-    to do some operations on a df.
+    ''' Function (which we want to parallelize across different cols of the df) to do some operations on a df.
     '''
     # pass any args in as a dict to be parsed out as needed (not used in this example)
     if kwarg_dict:
@@ -44,4 +46,5 @@ def do_work(df,kwarg_dict=None):
     for col in df._get_numeric_data().columns:
         df[f'{col}_squared'] = df[col]**2
         df[f'{col}_sqrt'] = np.sqrt(df[col])
+        
     return df
