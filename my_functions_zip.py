@@ -3,7 +3,7 @@ from functools import partial
 import numpy as np 
 import pandas as pd
 
-def parallelize_dataframe(df, func, n_pool=4, col_subsets=None, join_how='outer',kwargs_list=None):
+def parallelize_dataframe_zip(df, func, n_pool=4, col_subsets=None, join_how='outer',kwargs_list=None):
     ''' 
     Function to take a df, a function with args, and a list of column subsets to apply function to. 
     Resulting list of df's are then joined back together based on the df index.
@@ -31,7 +31,7 @@ def parallelize_dataframe(df, func, n_pool=4, col_subsets=None, join_how='outer'
     pool.join()
     return df_out
 
-def do_work(zipped):
+def do_work_zip(zipped):
     ''' Function (which we want to parallelize across different cols of the df) 
     to do some operations on a df.
     '''
